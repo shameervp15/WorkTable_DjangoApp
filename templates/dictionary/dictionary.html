@@ -1,0 +1,38 @@
+{% extends 'dictionary/layout.html' %}
+
+{% block content %}
+    <h2>Your Dictionary</h2>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form }}
+        <input type="submit" value="Search">
+    </form>
+{% if input %}
+<div>
+    <div>
+            <h2>{{ input }}</h2>
+        <h6>{{ phonetics }}</h6>
+        <button onclick="playAud()">PLAY</button>
+        <audio id="player" src="{{ audio }}"></audio>
+        <script>
+            var aud = document.getElementById("player");
+            function playAud() {
+                aud.play();
+                }
+        </script>
+    </div>
+    <p>
+        <h4>Definition : {{ definition }}</h4>
+        <h4>Example: {{ example }}</h4>
+    </p>
+    Synonyms :
+    {% for synonym in synonyms %}
+    {{ synonym }}
+    {% endfor %}
+    <hr>
+
+</div>
+{% else %}
+<h2> Sorry, API request limit exceeded</h2>
+{% endif %}
+{% endblock  %}

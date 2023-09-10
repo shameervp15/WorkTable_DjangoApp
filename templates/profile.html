@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<!--templates/layout.html-->
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<head>
+    <title>Profile Page</title>
+
+</head>
+<body>
+    <h2>DUE HOMEWORKS</h2>
+    {% if not homeworks_done %}
+    <table style="border:1px solid black;width:100%">
+        <thead">
+            <tr>
+                <th>S.No.</th>
+                <th>Subject</th>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Due</th>
+                <th>Status</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for homework in homeworks %}
+            <tr style="text-align: center;">
+                <td>{{forloop.counter}}</td>
+                <td>{{homework.subject}}</td>
+                <td>{{homework.title}}</td>
+                <td>{{homework.description | slice:"0:20"}}</td>
+                <td>{{homework.due}}</td>
+                <td>
+                    <!--USE JS TO MARK , NOT WORKING UNLESS-->
+                    <a href="{% url 'update_homework' homework.id %}">
+                        {% if homework.is_finished == True %}
+                            <input type="checkbox" checked>Click Me
+                        {% else %}
+                            <input type="checkbox">Click Me
+                        {% endif %}
+                    </a>
+                </td>
+                <td><a href="{% url 'delete_homework' homework.id %}"><button style="background-color: red;color:white">Del</button></a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <h3>All Homeworks Completed</h3>
+    {% endif %}
+<button><a href="{% url 'homeworks' %}">HOMEWORKS</a> </button>
+
+ <h2>DUE TO-DO</h2>
+    {% if not todo_done %}
+    <table style="border: 1px solid black;width:60%;text-align:center;">
+        <thead>
+        <tr>
+            <th>S.No</th>
+            <th>Title</th>
+            <th>Status</th>
+            <th>Delete</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for tdo in todos %}
+        <tr>
+            <td>{{forloop.counter}}</td>
+            <td>{{tdo.title}}</td>
+            <td><a href="{% url 'update_todo' tdo.id %}">
+                {% if tdo.is_finished == True %}
+                <input type="checkbox" checked>Click Me
+                {% else %}
+                <input type="checkbox">Click Me
+                {% endif%}
+            </a></td>
+            <td><a href="{% url 'delete_todo' tdo.id %}">Delete</a></td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <h4>All Tasks Have Been Completed</h4>
+    {% endif %}
+<button><a href="{% url 'todo' %}">TO-DO</a> </button>
+
+</body>
+</html>

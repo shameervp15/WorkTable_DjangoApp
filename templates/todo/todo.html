@@ -1,0 +1,47 @@
+{% extends 'todo/layout.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <h2>TO-DO LIST</h2>
+    {% if not todo_done %}
+    <table style="border: 1px solid black;width:60%;text-align:center;">
+        <thead>
+        <tr>
+            <th>S.No</th>
+            <th>Title</th>
+            <th>Status</th>
+            <th>Delete</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for tdo in todos %}
+        <tr>
+            <td>{{forloop.counter}}</td>
+            <td>{{tdo.title}}</td>
+            <td><a href="{% url 'update_todo' tdo.id %}">
+                {% if tdo.is_finished == True %}
+                <input type="checkbox" checked>Click Me
+                {% else %}
+                <input type="checkbox">Click Me
+                {% endif%}
+            </a></td>
+            <td><a href="{% url 'delete_todo' tdo.id %}">Delete</a></td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <h4>All Tasks Have Been Completed</h4>
+    {% endif %}
+    <h4>Create Todo</h4>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form | crispy }}
+        <input type="submit" value="Create">
+    </form>
+    {% if messages %}
+    {% for msg in messages %}
+<p>{{msg}}</p><br>
+    {% endfor %}
+    {% endif%}
+{% endblock %}

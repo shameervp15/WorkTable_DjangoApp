@@ -1,0 +1,46 @@
+{% extends 'book/layout.html' %}
+
+{% block content %}
+    <h2>Your Library</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form }}
+        <input type="submit" value="Search">
+    </form>
+{% for result in results %}
+<a href="{{ result.preview }}" target="_blank">
+    <div>
+        <img src="{{ result.thumbnail }}" alt="thumbnail">
+    </div>
+    <div>
+        <h3>{{ result.title }}</h3>
+        <b>
+            <u>
+                <h5>{{ result.subtitle }}</h5>
+            </u>
+        </b>
+        <b>
+            {% if result.description %}
+            <h6>{{ result.description }}</h6>
+            {% endif %}
+        </b>
+        <b>
+            {% if result.categories %}
+            <h6>
+                Categories:
+                {% for category in result.categories %}
+                {{ category }}
+                {% endfor %}
+            </h6>
+            {% endif %}
+            {% if result.count %}
+            <h6>Pages : {{ result.count }}</h6>
+            {% endif %}
+            {% if result.rating %}
+            <h6>Rating : {{ result.rating }}</h6>
+            {% endif %}
+        </b>
+    </div>
+</a>
+{% endfor %}
+{% endblock %}

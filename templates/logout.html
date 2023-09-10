@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<!--templates/layout.html-->
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<head>
+    <title>Logged Out</title>
+
+</head>
+<body>
+
+<h2>You are Logged out...</h2>
+<a href="{% url 'login' %}">{{ request.user.username | title }}Login Again?</a>
+
+</body>
+</html>

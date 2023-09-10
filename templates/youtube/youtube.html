@@ -1,0 +1,30 @@
+{% extends 'youtube/layout.html' %}
+
+{% block content %}
+    <h2>Search in Youtube</h2>
+    <form method="POST">
+        {% csrf_token %}
+        {{form}}
+        <input type="submit" value="Search">    
+    </form>
+
+    {% for result in results %}
+    <a href="{{ result.link }}" target="_blank">
+        <div>
+            <img src={{result.thumbnail}} alt="thumbnail">
+        </div>
+        <div>
+            <h3>{{ result.title }}</h3><br>
+            <b><u><h5>{{ result.channel }}</h5></u></b>
+            <h6>{{ result.description }}</h6>
+            <b>
+                <h6>{{ result.duration }}</h6>
+                <h6>{{ result.views }}</h6>
+                <h6>{{ result.published }}</h6>
+                
+            </b>
+        </div>
+
+    </a>
+    {% endfor %}
+{% endblock %}

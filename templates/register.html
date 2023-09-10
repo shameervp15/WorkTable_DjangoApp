@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<!--templates/layout.html-->
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<head>
+    <title>Register</title>
+
+</head>
+<body>
+{% load crispy_forms_tags %}
+<h2>SignUp Here</h2>
+<form method="post" action="{% url 'login' %}">
+    {% csrf_token %}
+    {{ form | crispy}}
+    <input type="submit" value="SignUp">
+</form>
+<p>Already have an account? <a href="{% url 'login' %}">SignIn</a></p>
+{% if messages %}
+{% for msg in messages %}<br>
+{{ msg }}
+{% endfor %}
+{% endif %}
+</body>
+</html>

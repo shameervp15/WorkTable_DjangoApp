@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<!--templates/layout.html-->
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<head>
+    <title>Convert Values</title>
+</head>
+<body>
+{% load crispy_forms_tags %}
+
+<h2>Conversion Board</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit" value="Select">
+<fieldset>
+    <div>
+        {{ m_form.input }}
+    </div>
+    <div>
+        {{ m_form.measure1 }}
+    </div>
+    <div>
+        {{ m_form.measure2 }}
+    </div>
+</fieldset>
+<fieldset>
+    <div>
+        {{ answer }}
+    </div>
+    <input type="submit" value="Convert">
+</fieldset>
+    </form>
+</body>
+</html>

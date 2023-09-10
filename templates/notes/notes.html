@@ -1,0 +1,32 @@
+{% extends 'dashboard/layout.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <h1>Notes of {{request.user.username | title}}</h1>
+    <ul>
+    {% for note in notes %}
+    <li>
+    <div>
+        <p><a href="{% url 'detail_note' note.id %}">{{ note.title | title }}</a><p>
+        <p>{{ note.description|slice:"0:100"}}</p>
+        <a href="{% url 'delete_note' note.id %}">Delete</a>
+    </div>
+    </li>
+    {% empty %}
+    <h4>No Notes</h4>
+    {% endfor %}
+    </ul>
+    <form method="POST">
+        {% csrf_token %}
+        <h4>Create Notes</h4>
+        {{ form | crispy }}
+        <input type="submit" value="Create">
+    </form>
+    <!--alert in the layout page commonly-->
+    {% if messages %}
+    {% for msg in messages %}
+    <p>{{msg}}</p><br>
+    {% endfor %}
+    {% endif %}
+{% endblock %}

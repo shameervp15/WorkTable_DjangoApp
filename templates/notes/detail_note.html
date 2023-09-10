@@ -1,0 +1,8 @@
+{% extends 'notes/layout.html' %}
+
+{% block content %}
+<!--the model Article would have context object named 'article'.-->
+    <h2>{{ notes.title | title }}</h2>
+    <p>{{ notes.description }}</p>
+
+{% endblock %}
